@@ -1,0 +1,47 @@
+create database insurance;
+use insurance;
+create table person(
+driverid varchar(20),pname char(20),address char(50),
+primary key (driverid));
+create table car(
+regno char(10), model char(20), location char(20),primary key(regno));
+alter table car
+drop column location;
+ alter table car
+add column year int;
+create table accident(
+reportno int(10), date int(10),location char(30), primary key(reportno));
+create table owns(
+driverid varchar(20), regno char(10), primary key(driverid,regno), 
+foreign key (regno) references car(regno),foreign key (driverid) references person(driverid));
+create table participated(
+driverid varchar(20),regno char(10),reportno int(10),damageamt int(20),primary key(driverid,regno,reportno),
+foreign key (driverid) references person(driverid),foreign key (regno) references car(regno),
+foreign key (reportno) references accident(reportno));
+insert into person(driverid,pname,address) value('AO1','RICHARD','SRINIVAS NAGAR');
+insert into person(driverid,pname,address) value('AO2','PRADEEP','RAJAJI NAGAR');
+insert into person(driverid,pname,address) value('AO3','SMITH','ASHOK NAGAR');
+insert into person(driverid,pname,address) value('AO4','VENU','N r COLONY');
+insert into person(driverid,pname,address) value('A05','JHON','HANUMANTH NAGAR');
+insert into car(regno,model,year) value('KA052250','INDICA',1990);
+insert into car(regno,model,year) value('KA031181','LANCER',1957);
+insert into car(regno,model,year) value('KA095477','TOYOYA',1998);
+insert into car(regno,model,year) value('KA053408','HONDA',2008);
+insert into car(regno,model,year) value('KA041702','AUDI',2005);
+alter table accident
+modify date date;
+insert into accident(reportno,date,location) value(11,'01-01-03','mysore road');
+insert into accident(reportno,date,location) value(12,'02-02-04','south end circle');
+insert into accident(reportno,date,location) value(13,'21-01-03','bull temple road');
+insert into accident(reportno,date,location) value(14,'17-02-08','mysore road');
+insert into accident(reportno,date,location) value(15,'04-03-05','kanakpura road');
+insert into participated(driverid,regno,reportno,damageamt) value('AO1','KA052250',11,10000);
+insert into participated(driverid,regno,reportno,damageamt) value('AO2','KA031181',12,50000);
+insert into participated(driverid,regno,reportno,damageamt) value('AO3','KA095477',13,25000);
+insert into participated(driverid,regno,reportno,damageamt) value('AO4','KA053408',14,3000);
+insert into participated(driverid,regno,reportno,damageamt) value('A05','KA041702',15,5000);
+select * from person;
+select * from car;
+select * from owns;
+select * from accident;
+select * from participated;
